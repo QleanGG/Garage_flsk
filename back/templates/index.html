@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qlean's Garage</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Qlean's Garage</h1>
+    <div class="work-area">
+        <form action='/add_car' method="post">
+        Car license number:<input id="license" name="license">
+        Car manufacture:<input id="carManufacture" name="carManufacture">
+        Color:<input id="carColor" name="carColor">
+        Car Model:<input id="carModel" name="carModel">
+        <button type="submit">Add Car</button>
+    </form>
+        <!-- <button onclick="addCar()">Add Car</button><br><br> -->
+        <table id="carTable">
+            <thead>
+                <tr>
+                    <th>license Number</th>
+                    <th>Car Manufacture</th>
+                    <th>Color</th>
+                    <th>Car Model Year</th>
+                    <th colspan="2">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <button onclick="clearGarage()">Reset Garage</button>
+        <button onclick="removeLastCar()">Remove Last Car</button><br><br>
+        License plate:<input id="licenseRemove"><br><br>
+        <button onclick="removeCarWithLicense()">Remove Car</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{url_for('static', filename='main.js')}}"></script>
+    
+</body>
+
+</html>

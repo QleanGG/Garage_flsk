@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qlean's Garage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Qlean's Garage</h1>
+    <div class="work-area">
+        Car license number:<input id="license">
+        Car manufacture:<input id="carManufacture">
+        Color:<input id="carColor">
+        Car Model:<input id="carModel">
+        <button onclick="addCar()">Add Car</button><br><br>
+        <table id="carTable">
+            <thead>
+                <tr>
+                    <th>license Number</th>
+                    <th>Car Manufacture</th>
+                    <th>Color</th>
+                    <th>Car Model Year</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+        <button onclick="clearGarage()">Reset Garage</button>
+        <button onclick="removeLastCar()">Remove Last Car</button><br><br>
+        License plate:<input id="licenseRemove"><br><br>
+        <button onclick="removeCarWithLicense()">Remove Car</button>
+    </div>
+    <script>
+
+        // Car array
+        let carArray = [];
+        let tbody = document.getElementById('carTable').getElementsByTagName('tbody')[0];
+
+        function updateTable() {
+            tbody.innerHTML = "";
+            for (let i = 0; i < carArray.length; i++) {
+                let row = tbody.insertRow();
+                let cell1 = document.createElement('td');
+                let cell2 = document.createElement('td');
+                let cell3 = document.createElement('td');
+                let cell4 = document.createElement('td');
+
+                cell1.textContent = carArray[i].license;
+                cell2.textContent = carArray[i].manufacture;
+                cell3.textContent = carArray[i].color;
+                cell4.textContent = carArray[i].model;
+
+                row.appendChild(cell1);
+                row.appendChild(cell2);
+                row.appendChild(cell3);
+                row.appendChild(cell4);
+            }
+        }
+
+        // Adding car to array
+        function addCar() {
+            carArray.push({ "license": license.value, "manufacture": carManufacture.value, "color": carColor.value, "model": carModel.value });
+            console.log(carArray)
+            updateTable();
+        }
+
+        function clearGarage() {
+            if (confirm("Are you sure you want to delete the database?") == true) {
+                carArray = [];
+                console.log(carArray);
+                updateTable();
+            }
+            else {
+                alert("Please don't do that again!")
+            }
+        }
+
+        function removeLastCar() {
+            carArray.pop();
+            console.log(carArray)
+            updateTable();
+        }
+
+        function removeSpecificCar() {
+            carArray.splice(removeArrayNumber.value, 1);
+            console.log(carArray);
+            updateTable();
+        }
+
+        function removeCarWithLicense() {
+            for (let i = 0; i < carArray.length; i++) {
+                if (carArray[i].license == licenseRemove.value) {
+                    carArray.splice(i, 1);
+                }
+            }
+            updateTable();
+        }
+     
+
+
+    </script>
+</body>
+
+</html>

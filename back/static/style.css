@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+body {
+    text-align: center;
+    background-image: url(garagebackground.webp);
+    background-repeat: no-repeat;
+    color: black;
+    font-family: 'Courier Prime', monospace;
+    margin: 0;
+}
+
+h1 {
+    color: white;
+}
+
+table {
+    margin: 50px auto;
+    border: solid 1px black;
+}
+
+
+tr {
+    margin: 4px;
+}
+th {
+    border: solid 1px black;
+    padding: 4px;
+}
+
+.work-area {
+    width: 100%;
+    padding: 100px 0 230px;
+    background-color: blanchedalmond;
+}
