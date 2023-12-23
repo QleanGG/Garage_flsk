@@ -2,41 +2,32 @@
 
 let carArray = []
 
-const fetchCarData = async () => {
-    try {
-        const response = await axios.get('/get_cars');
-        if (response.status === 200) {
-            // Data was successfully fetched, update carArray
-            carArray = response.data;
-        } else {
-            // Handle other status codes if needed
-            console.error('Failed to fetch data. Status code:', response.status);
-        }
-    } catch (error) {
-        // Handle any network errors
-        console.error('Network error:', error);
-    }
-}
+// const licenseInput = document.getElementById('license')
+const colorInput = document.getElementById('carColor')
+const manufactureInput = document.getElementById('carManufacture')
+const modelInput = document.getElementById('carModel')
+
 
 let tbody = document.getElementById('carTable').getElementsByTagName('tbody')[0];
 
 const editCar = async (license) => {
-    await axios.post('/edit_car')
-}
+    
+    const carData = {
+        "license": license,
+        "manufacture": manufactureInput.value,
+        "color": colorInput.value,
+        "model": modelInput.value
+    }
 
-const delCar = async (license) => {
     try {
-        const response = await axios.post(`/del_car/${license}`);
-        if (response.status === 200) {
-            // Car was successfully deleted
-            console.log('Car deleted successfully');
-          
-            updateTable(); 
-        } else {
-            console.error('Failed to delete car:', response.statusText);
-        }
+        // Make a POST request to your Flask server to edit the car
+        const response = await axios.post(`/edit_car/${license}`, carData);
+        console.log('Car edited:', response.data);
+        location.reload();
+
     } catch (error) {
-        console.error('An error occurred while deleting the car:', error);
+        
+        console.error('Error editing car:', error);
     }
 }
 
@@ -65,12 +56,7 @@ async function updateTable() {
         editButton.onclick = () => editCar(cell1.textContent);
         cell5.appendChild(editButton);
 
-        //creating a delete button
-        let deleteButton = document.createElement('button');
-        deleteButton.textContent = 'Delete';
-        deleteButton.onclick = () => delCar(cell1.textContent);
-        cell6.appendChild(deleteButton)
-
+      
         row.appendChild(cell1);
         row.appendChild(cell2);
         row.appendChild(cell3);
@@ -95,21 +81,6 @@ async function clearGarage() {
 }
 
 
-// function removeSpecificCar() {
-//     carArray.splice(removeArrayNumber.value, 1);
-//     console.log(carArray);
-//     updateTable();
-// }
-
-// function removeCarWithLicense() {
-//     for (let i = 0; i < carArray.length; i++) {
-//         if (carArray[i].license == licenseRemove.value) {
-//             carArray.splice(i, 1);
-//         }
-//     }
-//     updateTable();
-// }
-
-window.onload = updateTable;
+// window.onload = updateTable;
 
 

@@ -41,7 +41,7 @@ def get_cars():
     global car_lst
     return jsonify(car_lst)
 
-@app.route('/del_car/<string:license>', methods=['POST'])
+@app.route('/del_car/<string:license>', methods = ['GET','POST'])
 def del_car(license):
     global car_lst
      # Search for the car with the provided license in car_lst
@@ -57,9 +57,10 @@ def del_car(license):
         # Save the updated data to JSON
         save_json()
 
-        return jsonify({'message': 'Car deleted successfully'})
+        return redirect('/')
     else:
         return jsonify({'error': 'Car not found'}, 404)
+    redirect
         
 
 @app.route('/delete_all' ,methods = ['POST'])
@@ -70,6 +71,27 @@ def delete_all():
         return 'Database Deleted'
     else:
         return 'Error Deleting Database', 500  # Return a 500 Internal Server Error status code for errors
+
+
+@app.route('/edit_car/<string:license>', methods=['POST'])
+def edit_car(license):
+    global car_lst
+    req_data = request.get_json()
+    found_car = None
+
+    # Search for the car with the provided license in car_lst
+    for car in car_lst:
+        if car['license'] == license:
+            found_car = car
+            break
+
+    if found_car:
+        # Update the car's data with the data from the request
+        found_car.update(req_data)
+        save_json()
+        return jsonify({'message': 'Car edited successfully'})
+    else:
+        return jsonify({'error': 'Car not found'}, 404)
 
 
 if __name__ == '__main__':

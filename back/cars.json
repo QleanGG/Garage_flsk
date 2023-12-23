@@ -1,8 +1,14 @@
 [
     {
-        "license": "2622",
+        "license": "1234",
+        "manufacture": "kia",
+        "color": "blue",
+        "model": "1998"
+    },
+    {
+        "license": "667667",
         "manufacture": "Pontiac",
-        "color": "Red",
+        "color": "red",
         "model": "1978"
     }
 ]

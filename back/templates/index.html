@@ -11,13 +11,14 @@
 <body>
     <h1>Qlean's Garage</h1>
     <div class="work-area">
-        <form action='/add_car' method="post">
-        Car license number:<input id="license" name="license">
-        Car manufacture:<input id="carManufacture" name="carManufacture">
-        Color:<input id="carColor" name="carColor">
-        Car Model:<input id="carModel" name="carModel">
-        <button type="submit">Add Car</button>
-    </form>
+        <form id="createForm" action="{{ '/edit_car/' + (car.license if car else '') if edit_mode else '/add_car' }}" method="post">
+            Car license number:<input id="license" name="license" value="{{ car.license if car else '' }}" {{ 'readonly' if edit_mode else '' }}>
+            Car manufacture:<input id="carManufacture" name="carManufacture" value="{{ car.manufacture if car else '' }}">
+            Color:<input id="carColor" name="carColor" value="{{ car.color if car else '' }}">
+            Car Model:<input id="carModel" name="carModel" value="{{ car.model if car else '' }}">
+            <button type="submit">{{ 'Edit Car' if edit_mode else 'Add Car' }}</button>
+        </form>
+        
         <!-- <button onclick="addCar()">Add Car</button><br><br> -->
         <table id="carTable">
             <thead>
@@ -30,18 +31,26 @@
                 </tr>
             </thead>
             <tbody>
-
+                {% for car in car_lst %}
+                <tr>
+                    <td>{{ car.license }}</td>
+                    <td>{{ car.manufacture }}</td>
+                    <td>{{ car.color }}</td>
+                    <td>{{ car.model }}</td>
+                    <td><button onclick="editCar('{{ car.license }}')">Edit</button></td>
+                    <td><a href="{{ url_for('del_car', license=car.license) }}">Delete</a></td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
         <button onclick="clearGarage()">Reset Garage</button>
-        <button onclick="removeLastCar()">Remove Last Car</button><br><br>
-        License plate:<input id="licenseRemove"><br><br>
-        <button onclick="removeCarWithLicense()">Remove Car</button>
+        <!-- <button onclick="removeLastCar()">Remove Last Car</button><br><br> -->
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{{url_for('static', filename='main.js')}}"></script>
-    
+
 </body>
 
 </html>
