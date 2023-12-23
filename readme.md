@@ -1,5 +1,5 @@
 # Garage with Flask
-<p>In this project, I used an old template I had for a client side Garage and added a back end server using flsk<br>
+<p>In this project, I used an old template I had for a client side Garage and added a back end server using flask.<br>
 You are able to see the whole database through a table in the main page and intaract with it through that page!</p>
 
 ## Usage
